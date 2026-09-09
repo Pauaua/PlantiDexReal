@@ -1,8 +1,19 @@
-import { Tabs } from 'expo-router';
+import { Redirect, Tabs } from 'expo-router';
 
+import { useSession } from '@features/auth/hooks/useSession';
 import { colors } from '@lib/theme/tokens';
 
 export default function TabsLayout() {
+  const { session, status } = useSession();
+
+  if (status === 'unauthenticated') {
+    return <Redirect href="/(auth)/login" />;
+  }
+
+  if (status === 'idle' || !session) {
+    return null;
+  }
+
   return (
     <Tabs
       screenOptions={{

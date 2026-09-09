@@ -6,6 +6,8 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import { useAuthSessionListener } from '@features/auth/hooks/useAuthSessionListener';
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -17,6 +19,7 @@ const queryClient = new QueryClient({
 
 export default function RootLayout() {
   const [client] = useState(() => queryClient);
+  useAuthSessionListener();
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
