@@ -6,3 +6,5 @@ android
 ios
 *.lock
 package-lock.json
+db/migrations/migrations.js
+db/migrations/meta

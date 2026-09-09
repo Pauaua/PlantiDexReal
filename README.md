@@ -67,6 +67,18 @@ npm run typecheck      # tsc --noEmit (modo estricto)
 
 Husky corre `lint-staged` (ESLint + Prettier sobre los archivos en stage) antes de cada commit.
 
+## Base de datos local
+
+El esquema vive en `db/schema.ts` (Drizzle sobre `expo-sqlite`). Las migraciones se aplican
+automáticamente al abrir la app (`db/useDatabaseMigrations.ts`, llamado desde el layout raíz).
+
+Si cambias `db/schema.ts`, genera la migración correspondiente y commitea el resultado
+(`db/migrations/*.sql` + `migrations.js`):
+
+```bash
+npm run db:generate
+```
+
 ## Tests
 
 ```bash
@@ -103,8 +115,8 @@ que permite testear la UI con repos mockeados.
 ## Roadmap de este repo
 
 1. ✅ Scaffold (Expo Router, TS estricto, NativeWind, tooling de calidad)
-2. ⬜ Autenticación con Supabase
-3. ⬜ Modelo de datos local (Drizzle) + repositorio de especies con tests
+2. ✅ Autenticación con Supabase
+3. ✅ Modelo de datos local (Drizzle) + repositorio de especies con tests
 4. ⬜ Registro de especies (formulario + cámara + GPS) con cola de sincronización offline
 5. ⬜ Listado y detalle de especies vía TanStack Query
 6. ⬜ Mapa comunitario con clustering

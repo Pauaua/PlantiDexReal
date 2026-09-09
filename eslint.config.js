@@ -12,6 +12,14 @@ module.exports = [
     },
   },
   {
-    ignores: ['dist/*', 'node_modules/*', '.expo/*', 'android/*', 'ios/*'],
+    ignores: [
+      'dist/*',
+      'node_modules/*',
+      '.expo/*',
+      'android/*',
+      'ios/*',
+      'db/migrations/migrations.js',
+      'db/migrations/meta/*',
+    ],
   },
 ];
