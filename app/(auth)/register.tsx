@@ -1,0 +1,11 @@
+import { View, Text } from 'react-native';
+
+export default function RegisterScreen() {
+  return (
+    <View className="flex-1 items-center justify-center bg-background" accessibilityRole="none">
+      <Text className="text-foreground text-xl font-semibold" accessibilityRole="header">
+        Crear cuenta (próximamente)
+      </Text>
+    </View>
+  );
+}

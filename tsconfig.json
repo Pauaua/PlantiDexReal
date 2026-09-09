@@ -1,6 +1,20 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "exactOptionalPropertyTypes": false,
+    "types": ["jest"],
+    "paths": {
+      "@/*": ["./*"],
+      "@features/*": ["./features/*"],
+      "@lib/*": ["./lib/*"],
+      "@db/*": ["./db/*"],
+      "@store/*": ["./store/*"],
+      "@components/*": ["./components/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
+  "exclude": ["node_modules"]
 }
