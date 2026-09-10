@@ -79,6 +79,19 @@ Si cambias `db/schema.ts`, genera la migración correspondiente y commitea el re
 npm run db:generate
 ```
 
+## Backend remoto (Supabase)
+
+El esquema remoto (tabla `species` con PostGIS, RPCs `upsert_species`/`soft_delete_species`/
+`nearby_species`, políticas RLS y el bucket de Storage `species-photos`) vive en
+`supabase/migrations/0001_species_postgis.sql`. Cópialo y ejecútalo una vez en el **SQL Editor**
+de tu proyecto de Supabase (Project → SQL Editor → New query → pegar → Run).
+
+La sincronización local→remoto corre en `features/sync/syncEngine.ts`: drena la cola de cambios
+pendientes (`sync_queue`), sube la foto a Storage si corresponde, y hace upsert vía RPC. Se
+dispara automáticamente (`useAutoSync`, en el layout raíz) al iniciar sesión, al volver la app a
+foreground y al recuperar conexión; usa "el último cambio gana" (sobrescribe por timestamp, sin
+merge) ya que cada especie solo la edita su propio autor.
+
 ## Tests
 
 ```bash
@@ -119,6 +132,6 @@ que permite testear la UI con repos mockeados.
 3. ✅ Modelo de datos local (Drizzle) + repositorio de especies con tests
 4. ✅ Registro de especies (formulario + cámara + GPS) con cola de sincronización offline
 5. ✅ Listado y detalle de especies vía TanStack Query
-6. ⬜ Mapa comunitario con clustering
+6. ✅ Mapa comunitario con clustering
 7. ⬜ Revisión de accesibilidad y tema oscuro/verde en todas las pantallas
 8. ⬜ EAS Build para generar APK de prueba

@@ -9,6 +9,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { useDatabaseMigrations } from '@db/useDatabaseMigrations';
 import { useAuthSessionListener } from '@features/auth/hooks/useAuthSessionListener';
+import { useAutoSync } from '@features/sync/hooks/useAutoSync';
 import { colors } from '@lib/theme/tokens';
 
 const queryClient = new QueryClient({
@@ -24,6 +25,7 @@ export default function RootLayout() {
   const [client] = useState(() => queryClient);
   const { success: migrationsReady, error: migrationsError } = useDatabaseMigrations();
   useAuthSessionListener();
+  useAutoSync();
 
   if (migrationsError) {
     return (
