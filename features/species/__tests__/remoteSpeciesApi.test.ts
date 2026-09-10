@@ -66,7 +66,7 @@ describe('remoteSpeciesApi', () => {
     ).rejects.toThrow('rls violation');
   });
 
-  it('maps nearby species rows from GeoJSON coordinates', async () => {
+  it('maps nearby species rows', async () => {
     mockedSupabase.rpc.mockResolvedValue({
       error: null,
       data: [
@@ -75,7 +75,8 @@ describe('remoteSpeciesApi', () => {
           common_name: 'Copihue',
           scientific_name: 'Lapageria rosea',
           conservation_status: 'least_concern',
-          location: { coordinates: [-73.2, -39.8] },
+          latitude: -39.8,
+          longitude: -73.2,
           photo_url: null,
           author_id: 'user-1',
           created_at: '2026-01-01T00:00:00.000Z',

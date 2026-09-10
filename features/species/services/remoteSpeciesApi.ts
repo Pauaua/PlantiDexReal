@@ -30,7 +30,8 @@ interface NearbySpeciesRow {
   common_name: string;
   scientific_name: string;
   conservation_status: string;
-  location: { coordinates: [number, number] };
+  latitude: number;
+  longitude: number;
   photo_url: string | null;
   author_id: string;
   created_at: string;
@@ -89,8 +90,8 @@ export const remoteSpeciesApi = {
       commonName: row.common_name,
       scientificName: row.scientific_name,
       conservationStatus: row.conservation_status,
-      latitude: row.location.coordinates[1],
-      longitude: row.location.coordinates[0],
+      latitude: row.latitude,
+      longitude: row.longitude,
       photoUrl: row.photo_url,
       authorId: row.author_id,
       createdAt: row.created_at,
