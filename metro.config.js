@@ -1,9 +1,6 @@
-const { getDefaultConfig } = require('expo/metro-config');
 const { withNativeWind } = require('nativewind/metro');
+const { getSentryExpoConfig } = require('@sentry/react-native/metro');
 
-const config = getDefaultConfig(__dirname);
-
-// Drizzle SQL migration files are bundled as text assets for expo-sqlite.
-config.resolver.sourceExts.push('sql');
+const config = getSentryExpoConfig(__dirname);
 
 module.exports = withNativeWind(config, { input: './global.css' });

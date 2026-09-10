@@ -12,6 +12,17 @@ module.exports = [
     },
   },
   {
+    files: ['scripts/**/*.js'],
+    languageOptions: {
+      globals: {
+        require: 'readonly',
+        module: 'writable',
+        __dirname: 'readonly',
+        console: 'readonly',
+      },
+    },
+  },
+  {
     ignores: [
       'dist/*',
       'node_modules/*',

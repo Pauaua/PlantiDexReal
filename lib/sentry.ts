@@ -12,6 +12,12 @@ export function initSentry(): void {
     enabled: Boolean(env.sentryDsn),
     debug: __DEV__,
     tracesSampleRate: 1.0,
+    // Adds more context data to events (IP address, user, etc.)
+    sendDefaultPii: true,
+    enableLogs: true,
+    replaysSessionSampleRate: 0.1,
+    replaysOnErrorSampleRate: 1,
+    integrations: [Sentry.mobileReplayIntegration(), Sentry.feedbackIntegration()],
   });
 }
 
