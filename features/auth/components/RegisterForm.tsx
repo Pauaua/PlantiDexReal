@@ -24,7 +24,14 @@ export function RegisterForm() {
 
   const onSubmit = handleSubmit((values) => {
     signUp.mutate(values, {
-      onSuccess: () => router.replace('/(tabs)/species'),
+      onSuccess: (session) => {
+        // With email confirmation enabled (Supabase's default), signUp
+        // succeeds but returns no session until the user confirms their
+        // email — there's no account to route into yet.
+        if (session) {
+          router.replace('/(tabs)/species');
+        }
+      },
     });
   });
 
@@ -89,9 +96,20 @@ export function RegisterForm() {
           />
         )}
       />
+      {signUp.isSuccess && !signUp.data ? (
+        <Text
+          accessibilityRole="alert"
+          accessibilityLiveRegion="polite"
+          className="text-primary-400 mb-3 text-sm"
+        >
+          Creamos tu cuenta. Revisa tu correo y confirma tu dirección antes de iniciar sesión.
+        </Text>
+      ) : null}
       {signUp.isError ? (
         <Text accessibilityRole="alert" className="text-danger mb-3 text-sm">
-          No pudimos crear tu cuenta. Intenta de nuevo.
+          {signUp.error instanceof Error
+            ? signUp.error.message
+            : 'No pudimos crear tu cuenta. Intenta de nuevo.'}
         </Text>
       ) : null}
       <Button label="Crear cuenta" onPress={onSubmit} loading={signUp.isPending} />

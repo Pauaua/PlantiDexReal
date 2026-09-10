@@ -63,7 +63,9 @@ export function LoginForm() {
       />
       {signIn.isError ? (
         <Text accessibilityRole="alert" className="text-danger mb-3 text-sm">
-          No pudimos iniciar sesión. Verifica tu correo y contraseña.
+          {signIn.error instanceof Error
+            ? signIn.error.message
+            : 'No pudimos iniciar sesión. Verifica tu correo y contraseña.'}
         </Text>
       ) : null}
       <Button label="Iniciar sesión" onPress={onSubmit} loading={signIn.isPending} />
