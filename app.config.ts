@@ -74,6 +74,11 @@ const config: ExpoConfig = {
   ],
   extra: {
     router: {},
+    // Filled in automatically the first time you run `eas init` (or
+    // `eas build`) — see README.md "EAS Build" for the full setup flow.
+    eas: {
+      projectId: process.env.EAS_PROJECT_ID ?? '',
+    },
   },
 };
 

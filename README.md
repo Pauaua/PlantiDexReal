@@ -36,16 +36,19 @@ npm install
 cp .env.example .env
 ```
 
-Completa `.env` con tus credenciales de Supabase:
+Completa `.env` con tus credenciales:
 
 ```
 EXPO_PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
 EXPO_PUBLIC_SUPABASE_ANON_KEY=tu-anon-key
-EXPO_PUBLIC_SENTRY_DSN=   # opcional en desarrollo
+EXPO_PUBLIC_SENTRY_DSN=              # opcional en desarrollo
+GOOGLE_MAPS_API_KEY=tu-api-key       # Maps SDK for Android habilitado en Google Cloud
 ```
 
-> Todas las variables de entorno usadas en el cliente deben tener el prefijo `EXPO_PUBLIC_`
-> para que Expo las incluya en el bundle. Nunca pongas la `service_role key` aquí.
+> Las variables que usa el cliente en tiempo de ejecución deben tener el prefijo `EXPO_PUBLIC_`
+> para que Expo las incluya en el bundle. `GOOGLE_MAPS_API_KEY` es la excepción: solo se lee al
+> generar la config nativa (`app.config.ts`), nunca se bundlea. Nunca pongas la `service_role key`
+> de Supabase en este archivo.
 
 ## Correr el proyecto
 
@@ -92,6 +95,40 @@ dispara automáticamente (`useAutoSync`, en el layout raíz) al iniciar sesión,
 foreground y al recuperar conexión; usa "el último cambio gana" (sobrescribe por timestamp, sin
 merge) ya que cada especie solo la edita su propio autor.
 
+## EAS Build (generar un APK de prueba)
+
+La configuración de build vive en `eas.json` con tres perfiles:
+
+- **development**: build con `expo-dev-client` para desarrollo con módulos nativos.
+- **preview**: APK instalable directamente en un dispositivo Android, sin pasar por Play Store —
+  es el que quieres para repartir un build de prueba.
+- **production**: `.aab` (App Bundle) para subir a Google Play.
+
+Pasos (una sola vez):
+
+```bash
+npx eas-cli login          # inicia sesión con tu cuenta de expo.dev
+npx eas-cli init           # crea el proyecto en EAS y te da un projectId
+```
+
+`eas init` te va a mostrar un `projectId` (un UUID). Como el proyecto usa `app.config.ts`
+(no `app.json`), EAS no puede escribirlo automáticamente — pégalo tú en `app.config.ts`,
+en `extra.eas.projectId`, o expórtalo como `EAS_PROJECT_ID` en tu `.env`.
+
+Luego, para generar el APK de prueba:
+
+```bash
+npm run build:android:preview
+```
+
+Esto sube el proyecto a EAS, lo compila en la nube, y al terminar te da un link para descargar
+el `.apk` e instalarlo directo en un dispositivo Android (o un link QR desde la CLI).
+
+> Las variables de entorno (`EXPO_PUBLIC_SUPABASE_URL`, etc.) que necesita el build en la nube
+> **no** se leen de tu `.env` local — debes cargarlas como [EAS Environment Variables](https://docs.expo.dev/eas/environment-variables/):
+> `npx eas-cli env:create --scope project` (una vez por variable), o subir tu `.env` con
+> `npx eas-cli env:push`.
+
 ## Tests
 
 ```bash
@@ -134,4 +171,5 @@ que permite testear la UI con repos mockeados.
 5. ✅ Listado y detalle de especies vía TanStack Query
 6. ✅ Mapa comunitario con clustering
 7. ✅ Revisión de accesibilidad y tema oscuro/verde en todas las pantallas
-8. ⬜ EAS Build para generar APK de prueba
+8. ✅ EAS Build para generar APK de prueba (configurado — falta que corras `eas init` y `eas build`
+   con tu cuenta de expo.dev)
