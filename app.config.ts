@@ -8,6 +8,7 @@ const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY ?? '';
 const config: ExpoConfig = {
   name: 'plantidexreal',
   slug: 'plantidexreal',
+  owner: 'plantidex',
   version: '1.0.0',
   scheme: 'plantidex',
   orientation: 'portrait',
@@ -77,7 +78,7 @@ const config: ExpoConfig = {
     // Filled in automatically the first time you run `eas init` (or
     // `eas build`) — see README.md "EAS Build" for the full setup flow.
     eas: {
-      projectId: process.env.EAS_PROJECT_ID ?? '',
+      projectId: 'feeed220-2b63-4fb7-988b-ae4b7f6c05ab',
     },
   },
 };
