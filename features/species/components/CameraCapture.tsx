@@ -38,10 +38,17 @@ export function CameraCapture({ photoUri, onCapture, error }: CameraCaptureProps
 
   if (isCameraOpen) {
     return (
-      <View className="rounded-card mb-4 h-72 overflow-hidden">
+      <View
+        className="rounded-card mb-4 h-72 overflow-hidden"
+        accessibilityLabel="Vista previa de la cámara"
+      >
         <CameraView ref={cameraRef} style={{ flex: 1 }} facing="back" />
         <View className="absolute bottom-3 w-full flex-row justify-center px-4">
-          <Button label="Capturar foto" onPress={handleCapture} />
+          <Button
+            label="Capturar foto"
+            accessibilityHint="Toma la foto que se usará para esta especie"
+            onPress={handleCapture}
+          />
         </View>
       </View>
     );

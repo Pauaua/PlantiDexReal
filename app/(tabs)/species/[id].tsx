@@ -17,7 +17,9 @@ export default function SpeciesDetailScreen() {
   if (isLoading) {
     return (
       <View className="flex-1 items-center justify-center bg-background">
-        <Text className="text-foreground-muted">Cargando especie…</Text>
+        <Text accessibilityLiveRegion="polite" className="text-foreground-muted">
+          Cargando especie…
+        </Text>
       </View>
     );
   }

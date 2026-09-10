@@ -47,7 +47,10 @@ export function CommunityMap() {
   };
 
   return (
-    <View className="flex-1 bg-background">
+    <View
+      className="flex-1 bg-background"
+      accessibilityLabel="Mapa comunitario de especies reportadas"
+    >
       <ClusteredMapView
         mapRef={(ref) => {
           mapRef.current = ref as unknown as MapView | null;
@@ -56,7 +59,7 @@ export function CommunityMap() {
         initialRegion={{ ...DEFAULT_CENTER, latitudeDelta: 0.5, longitudeDelta: 0.5 }}
         onRegionChangeComplete={handleRegionChangeComplete}
         clusterColor={colors.primary}
-        clusterTextColor="#FFFFFF"
+        clusterTextColor={colors.foreground}
       >
         {(reports ?? []).map((report) => (
           <Marker

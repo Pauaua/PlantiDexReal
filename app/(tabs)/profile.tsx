@@ -14,7 +14,21 @@ export default function ProfileScreen() {
         Perfil
       </Text>
       <Text className="text-foreground-muted mb-8">{user?.email}</Text>
-      <Button label="Cerrar sesión" variant="secondary" onPress={() => signOut.mutate()} />
+      {signOut.isError ? (
+        <Text
+          accessibilityRole="alert"
+          accessibilityLiveRegion="polite"
+          className="text-danger mb-3 text-sm"
+        >
+          No pudimos cerrar tu sesión. Intenta de nuevo.
+        </Text>
+      ) : null}
+      <Button
+        label="Cerrar sesión"
+        variant="secondary"
+        loading={signOut.isPending}
+        onPress={() => signOut.mutate()}
+      />
     </View>
   );
 }

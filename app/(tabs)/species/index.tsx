@@ -24,7 +24,9 @@ export default function SpeciesListScreen() {
       </View>
 
       {isLoading ? (
-        <Text className="text-foreground-muted px-6">Cargando especies…</Text>
+        <Text accessibilityLiveRegion="polite" className="text-foreground-muted px-6">
+          Cargando especies…
+        </Text>
       ) : isError ? (
         <Text accessibilityRole="alert" className="text-danger px-6">
           No pudimos cargar las especies registradas.

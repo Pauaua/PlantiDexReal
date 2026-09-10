@@ -1,5 +1,7 @@
 import { ActivityIndicator, Pressable, type PressableProps, Text } from 'react-native';
 
+import { colors } from '@lib/theme/tokens';
+
 interface ButtonProps extends PressableProps {
   label: string;
   loading?: boolean;
@@ -27,7 +29,10 @@ export function Button({
       {...pressableProps}
     >
       {loading ? (
-        <ActivityIndicator color="#EAF5EE" />
+        <ActivityIndicator
+          color={variant === 'primary' ? colors.foreground : colors.primary}
+          accessibilityLabel={`${label}, cargando`}
+        />
       ) : (
         <Text
           className={`font-semibold ${variant === 'primary' ? 'text-white' : 'text-foreground'}`}
