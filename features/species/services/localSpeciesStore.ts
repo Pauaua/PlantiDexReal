@@ -4,6 +4,15 @@ import type { Database } from '@db/client';
 import { species, type ConservationStatus, type SpeciesRow } from '@db/schema';
 import { generateId } from '@lib/id';
 
+// Guarantees strictly increasing timestamps even for calls within the same
+// millisecond, so "most recent first" ordering never depends on tie-breaking.
+let lastTimestamp = 0;
+function nextTimestamp(): number {
+  const now = Date.now();
+  lastTimestamp = now > lastTimestamp ? now : lastTimestamp + 1;
+  return lastTimestamp;
+}
+
 export interface CreateSpeciesInput {
   commonName: string;
   scientificName: string;
@@ -38,7 +47,7 @@ export function createLocalSpeciesStore(database: Database) {
     },
 
     async create(input: CreateSpeciesInput): Promise<SpeciesRow> {
-      const now = Date.now();
+      const now = nextTimestamp();
       const [row] = await database
         .insert(species)
         .values({

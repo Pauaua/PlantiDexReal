@@ -118,7 +118,7 @@ que permite testear la UI con repos mockeados.
 2. ✅ Autenticación con Supabase
 3. ✅ Modelo de datos local (Drizzle) + repositorio de especies con tests
 4. ✅ Registro de especies (formulario + cámara + GPS) con cola de sincronización offline
-5. ⬜ Listado y detalle de especies vía TanStack Query
+5. ✅ Listado y detalle de especies vía TanStack Query
 6. ⬜ Mapa comunitario con clustering
 7. ⬜ Revisión de accesibilidad y tema oscuro/verde en todas las pantallas
 8. ⬜ EAS Build para generar APK de prueba

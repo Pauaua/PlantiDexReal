@@ -2,15 +2,7 @@ import { Pressable, Text, View } from 'react-native';
 
 import { CONSERVATION_STATUSES, type ConservationStatus } from '@db/schema';
 
-const LABELS: Record<ConservationStatus, string> = {
-  least_concern: 'Preocupación menor',
-  near_threatened: 'Casi amenazada',
-  vulnerable: 'Vulnerable',
-  endangered: 'En peligro',
-  critically_endangered: 'En peligro crítico',
-  extinct_in_the_wild: 'Extinta en estado salvaje',
-  unknown: 'Desconocido',
-};
+import { CONSERVATION_STATUS_LABELS as LABELS } from '../constants';
 
 interface ConservationStatusPickerProps {
   value: ConservationStatus | undefined;
