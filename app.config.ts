@@ -70,6 +70,8 @@ const config: ExpoConfig = {
       '@sentry/react-native',
       {
         url: 'https://sentry.io/',
+        organization: process.env.SENTRY_ORG ?? '',
+        project: process.env.SENTRY_PROJECT ?? '',
       },
     ],
   ],
