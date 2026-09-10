@@ -1,0 +1,9 @@
+# Sanity check: the app launches and lands on the login screen.
+# Run: maestro test .maestro/flows/smoke-test.yaml
+appId: com.plantidex.app
+---
+- launchApp
+- assertVisible: 'Plantidex'
+- assertVisible: 'Correo electrónico'
+- assertVisible: 'Contraseña'
+- assertVisible: 'Iniciar sesión'

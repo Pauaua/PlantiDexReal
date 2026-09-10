@@ -11,6 +11,9 @@ import { useDatabaseMigrations } from '@db/useDatabaseMigrations';
 import { useAuthSessionListener } from '@features/auth/hooks/useAuthSessionListener';
 import { useAutoSync } from '@features/sync/hooks/useAutoSync';
 import { colors } from '@lib/theme/tokens';
+import { initSentry, Sentry } from '@lib/sentry';
+
+initSentry();
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,7 +24,7 @@ const queryClient = new QueryClient({
   },
 });
 
-export default function RootLayout() {
+function RootLayout() {
   const [client] = useState(() => queryClient);
   const { success: migrationsReady, error: migrationsError } = useDatabaseMigrations();
   useAuthSessionListener();
@@ -54,3 +57,5 @@ export default function RootLayout() {
     </GestureHandlerRootView>
   );
 }
+
+export default Sentry.wrap(RootLayout);

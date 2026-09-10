@@ -1,0 +1,8 @@
+# Submitting the login form empty shows inline validation errors instead of
+# calling Supabase. Run: maestro test .maestro/flows/login-validation.yaml
+appId: com.plantidex.app
+---
+- launchApp
+- tapOn: 'Iniciar sesión'
+- assertVisible: 'El correo es obligatorio'
+- assertVisible: 'La contraseña debe tener al menos 6 caracteres'

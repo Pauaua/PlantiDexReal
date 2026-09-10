@@ -20,7 +20,8 @@ offline-first, con mapeo comunitario en tiempo real vía Supabase + PostGIS.
 - expo-camera / expo-image-picker / expo-location
 - Jest + React Native Testing Library
 - ESLint + Prettier + Husky + lint-staged
-- Sentry
+- Sentry (tracking de errores)
+- Maestro (E2E)
 - EAS Build
 
 ## Requisitos
@@ -129,6 +130,26 @@ el `.apk` e instalarlo directo en un dispositivo Android (o un link QR desde la 
 > `npx eas-cli env:create --scope project` (una vez por variable), o subir tu `.env` con
 > `npx eas-cli env:push`.
 
+## Tracking de errores (Sentry)
+
+`lib/sentry.ts` inicializa el SDK (`Sentry.init`) al cargar `app/_layout.tsx`, y el layout raíz
+está envuelto con `Sentry.wrap(...)` para captura automática de errores y trazas de navegación.
+Si `EXPO_PUBLIC_SENTRY_DSN` no está seteada, queda deshabilitado (`enabled: false`) — no rompe
+nada en desarrollo sin cuenta de Sentry.
+
+Para activarlo:
+
+1. Crea una cuenta/proyecto en [sentry.io](https://sentry.io) (plataforma: React Native).
+2. Copia el **DSN** que te da (Settings → Projects → tu proyecto → Client Keys).
+3. En tu `.env`, descomenta y completa:
+   ```
+   EXPO_PUBLIC_SENTRY_DSN=https://xxxx@xxxx.ingest.sentry.io/xxxx
+   ```
+4. Si vas a compilar con EAS, súbela también al entorno correspondiente:
+   ```bash
+   npx eas-cli env:push --environment preview --path .env
+   ```
+
 ## Tests
 
 ```bash
@@ -138,8 +159,30 @@ npm run test:coverage
 ```
 
 Usamos Jest (`jest-expo` preset) + React Native Testing Library. Los tests viven junto a cada
-feature en carpetas `__tests__/`. E2E con Maestro está planeado (carpeta `.maestro/` como
-placeholder) pero aún no implementado.
+feature en carpetas `__tests__/`.
+
+### E2E con Maestro
+
+Los flujos viven en `.maestro/flows/*.yaml` (smoke test de login, validación de formulario,
+navegación entre login/registro). Corren contra un build instalado en un emulador/dispositivo
+(no contra el bundle de desarrollo), así que primero necesitas un APK — el `preview` que genera
+EAS Build sirve.
+
+1. Instala el CLI de Maestro (una sola vez, fuera de este repo):
+   ```bash
+   curl -Ls "https://get.maestro.mobile.dev" | bash
+   ```
+   (En Windows, usa WSL — Maestro no tiene build nativo para Windows.)
+2. Instala el APK en un emulador/dispositivo Android conectado.
+3. Corre los flujos:
+   ```bash
+   npm run e2e                                    # todos los flujos
+   maestro test .maestro/flows/smoke-test.yaml    # uno en particular
+   ```
+
+Los flujos existentes no requieren una cuenta de prueba (solo validan pantallas de auth). Un
+flujo de "crear especie" de punta a punta (cámara + GPS + guardar) es el siguiente paso natural
+a agregar aquí, siguiendo el mismo patrón — avísame cuando quieras que lo escriba.
 
 ## Estructura del proyecto
 

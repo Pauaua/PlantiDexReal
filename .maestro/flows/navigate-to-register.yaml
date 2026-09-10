@@ -1,0 +1,10 @@
+# Navigation between the auth screens works end to end.
+# Run: maestro test .maestro/flows/navigate-to-register.yaml
+appId: com.plantidex.app
+---
+- launchApp
+- tapOn: '¿No tienes cuenta? Crea una'
+- assertVisible: 'Crear cuenta'
+- assertVisible: 'Nombre'
+- tapOn: '¿Ya tienes cuenta? Inicia sesión'
+- assertVisible: 'Plantidex'
