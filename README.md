@@ -182,7 +182,7 @@ EAS Build sirve.
 
 Los flujos existentes no requieren una cuenta de prueba (solo validan pantallas de auth). Un
 flujo de "crear especie" de punta a punta (cámara + GPS + guardar) es el siguiente paso natural
-a agregar aquí, siguiendo el mismo patrón — avísame cuando quieras que lo escriba.
+a agregar aquí, siguiendo el mismo patrón, pendiente de implementar.
 
 ## Estructura del proyecto
 
@@ -216,3 +216,14 @@ que permite testear la UI con repos mockeados.
 7. ✅ Revisión de accesibilidad y tema oscuro/verde en todas las pantallas
 8. ✅ EAS Build para generar APK de prueba (configurado — falta que corras `eas init` y `eas build`
    con tu cuenta de expo.dev)
+
+## Declaración Uso de IA
+
+Este proyecto se desarrolló con apoyo de herramientas de inteligencia artificial,
+específicamente **Claude Code** (Anthropic), como asistente de programación. La IA se usó para:
+
+- Diagnosticar y corregir errores de build, configuración y lógica.
+- Escribir tests y documentación.
+
+Todo el código generado fue revisado, probado e integrado manualmente. Las decisiones de diseño,
+la arquitectura y el resultado final del proyecto son responsabilidad propia.
